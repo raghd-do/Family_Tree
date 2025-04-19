@@ -6,18 +6,30 @@ export async function getFamilyData() {
   const data = await response.json();
 
   return data.map((person) => ({
+    // IDs
     id: person["رقم"],
-    // pid: "W1-01",
-    pid: person["رمز الاب"],
+    pid: person["رمز الاب"] || person["رمز الزوج"],
+    // info
     name: person["الاسم"],
-    gender: person["الجنس"],
     birth: person["ميلاد"],
     death: person["وفات"],
-    Marriages: person["زوج"],
-    cantact: person["تواصل"],
+    gender: person["الجنس"],
     img: person["صورة"] || null,
-    tags: [person["الجنس"] === "أنثى" ? "female" : null],
-    field_1: person["وفات"] ? "متوفى" : null,
+    // related
+    father: person["الاب"],
+    mother: person["الام"],
+    Marriages: person["زوج"],
+    childrenNumber: person["عدد الأبناء"],
+    lactatingMother: person["الأم رضاع"],
+    fosterFather: person["الأب رضاع"],
+    fosterSiblings: person["إخوة رضاع"],
+    // contact
+    cantact: person["تواصل"],
+    tags: [
+      person["رمز الزوج"].trim() !== "" ? "assistant" : null,
+      person["الجنس"] === "أنثى" ? "female" : null,
+    ],
+    lifeStatus: person["وفات"] ? "متوفى" : null,
   }));
 }
 

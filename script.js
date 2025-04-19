@@ -34,7 +34,7 @@ getFamilyData().then((familyNodes) => {
 
     nodeBinding: {
       field_0: "name",
-      field_1: "field_1",
+      field_1: "lifeStatus",
       img_0: "img",
     },
 
